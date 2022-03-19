@@ -61,12 +61,14 @@
 <script>
 import { ref } from "vue";
 import {useRouter} from 'vue-router'
+import {useLoginStore} from '../../stores/login'
 export default {
   setup() {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
     const user = ref({})
+    const loginStore = useLoginStore()
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -80,8 +82,10 @@ export default {
     const goToRegister =() =>{
         router.push({name: 'register'})
     }
-    const login = () =>{
+    const login = async () =>{
         console.log(user.value)
+        let teste = await loginStore.login(user.value)
+        console.log(teste)
     }
     return { showPassword, showPdw, passwordInput, goToRegister, user,login };
   },
