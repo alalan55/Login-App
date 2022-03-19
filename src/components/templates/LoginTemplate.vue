@@ -26,6 +26,12 @@
           </label>
 
           <button class="btn-login">Entrar</button>
+
+          <div class="register">
+            <span>
+              Ainda não tem uma conta? <span class="strong">Registre-se</span>
+            </span>
+          </div>
         </form>
       </div>
     </div>
@@ -38,7 +44,7 @@ export default {};
 
 <style lang="scss" scoped>
 .login-template {
-  border: 1px solid red;
+    padding: 1.5rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -60,47 +66,56 @@ export default {};
 
     .inputs {
       margin: 2rem 0;
-      form{
+      form {
+        label {
+          display: flex;
+          flex-direction: column;
+          font-size: 0.9em;
+          font-weight: 500;
+          div {
+            height: 45px;
+            margin: 0.5rem 0;
 
-          label {
-            display: flex;
-            flex-direction: column;
-             font-size: .9em;
-             font-weight: 500;
-            div {
-              height: 45px;
-              margin: .5rem 0;
-             
-              input {
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
-                padding: 0 0.8rem;
-                border: 1px solid grey;
-    
-                &:focus {
-                  outline: rgb(102, 102, 102);
-                }
+            input {
+              width: 100%;
+              height: 100%;
+              border-radius: 10px;
+              padding: 0 0.8rem;
+              border: 1px solid grey;
+
+              &:focus {
+                outline: rgb(102, 102, 102);
               }
             }
           }
-          .btn-login{
-              margin: .8rem 0 0 0 ;
-              width: 100%;
-              padding: .8rem;
-              border-radius: 10px;
-              border: none;
-              cursor: pointer;
-              background: #7F56DA;
-              color: white;
-              font-weight: 500;
-              transition: .2s ease-in-out;
+        }
+        .btn-login {
+          margin: 0.8rem 0 0 0;
+          width: 100%;
+          padding: 0.8rem;
+          border-radius: 10px;
+          border: none;
+          cursor: pointer;
+          background: #7f56da;
+          color: white;
+          font-weight: 500;
+          transition: 0.2s ease-in-out;
 
-              &:hover{
-                   background: #a27eee;
-              }
-
+          &:hover {
+            background: #a27eee;
           }
+        }
+        .register {
+          margin: 1rem 0 0 0;
+          text-align: center;
+          font-size: 0.8em;
+
+          .strong {
+            color: #7f56da;
+            font-weight: 500;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
