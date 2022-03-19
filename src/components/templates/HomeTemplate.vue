@@ -1,22 +1,50 @@
 <template>
-    <div class="home-template">
-        <span>home template</span>
+  <div class="home-template">
+    <div class="msgs">
+      <span class="principal">Olá Seja bem-vindo</span>
+      <span class="secundario">{{ email }}</span>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+import { useLoginStore } from "../../stores/login";
+import { computed } from "vue";
+export default {
+  setup() {
+    const store = useLoginStore();
+    const email = computed(() => store.$user.email);
+    return {
+      store,
+      email,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.home-template{
-    border: 1px solid red;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.home-template {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../../assets/img/background.svg) no-repeat;
+  background-size: cover;
 
+  .msgs {
+    text-align: center;
+    color: rgb(34, 29, 29);
+    span {
+      display: block;
+    }
+
+    .principal {
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+    .secundario {
+      font-size: 0.95em;
+    }
+  }
+}
 </style>
