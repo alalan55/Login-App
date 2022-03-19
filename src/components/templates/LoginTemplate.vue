@@ -165,4 +165,13 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 780px){
+   .title{
+       text-align: center;
+   }
+   .sub-title{
+       text-align: center;
+   }
+}
 </style>

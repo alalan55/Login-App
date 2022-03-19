@@ -62,4 +62,10 @@ export default {};
     }
   }
 }
+
+@media screen and (max-width: 780px){
+    .img{
+        display: none;
+    }
+}
 </style>
