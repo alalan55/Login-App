@@ -84,8 +84,8 @@ export default {
     }
     const login = async () =>{
         console.log(user.value)
-        let teste = await loginStore.login(user.value)
-        console.log(teste)
+        let successLogin = await loginStore.login(user.value)
+        console.log(successLogin)
     }
     return { showPassword, showPdw, passwordInput, goToRegister, user,login };
   },
