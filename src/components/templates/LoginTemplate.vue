@@ -83,9 +83,11 @@ export default {
         router.push({name: 'register'})
     }
     const login = async () =>{
-        console.log(user.value)
         let successLogin = await loginStore.login(user.value)
-        console.log(successLogin)
+        
+        if(successLogin){
+            router.push({name: 'home'})
+        }
     }
     return { showPassword, showPdw, passwordInput, goToRegister, user,login };
   },

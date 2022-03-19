@@ -100,7 +100,6 @@ export default {
       router.push("/");
     };
     const register = async () => {
-      console.log(user.value);
       const response = await loginStore.register(user.value);
 
       if (response.id) {
