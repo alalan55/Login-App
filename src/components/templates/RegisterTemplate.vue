@@ -3,6 +3,12 @@
     <div class="btn-voltar" @click="goToLogin">
       <img src="../../assets/icons/arrow-back.svg" alt="user icon" />
     </div>
+    <div class="success-message" v-if="success">
+        <span>
+            Registro realizado com sucesso!
+        </span>
+
+    </div>
     <div class="content-register">
       <div class="title">
         <h1>Faça seu registro!</h1>
@@ -16,14 +22,22 @@
           <label>
             Nome
             <div>
-              <input type="text" placeholder="Insira seu nome" v-model="user.name" />
+              <input
+                type="text"
+                placeholder="Insira seu nome"
+                v-model="user.name"
+              />
               <img src="../../assets/icons/user.svg" alt="user icon" />
             </div>
           </label>
           <label>
             E-mail
             <div>
-              <input type="email" placeholder="Insira seu e-mail" v-model="user.email" />
+              <input
+                type="email"
+                placeholder="Insira seu e-mail"
+                v-model="user.email"
+              />
               <img src="../../assets/icons/email.svg" alt="user icon" />
             </div>
           </label>
@@ -63,12 +77,15 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useLoginStore } from "../../stores/login";
 export default {
   setup() {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
-    const user = ref({})
+    const user = ref({});
+    const loginStore = useLoginStore();
+    const success = ref(false);
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -80,12 +97,23 @@ export default {
       }
     };
     const goToLogin = () => {
-      router.push('/');
+      router.push("/");
     };
-    const register = () =>{
-        console.log(user.value)
-    }
-    return { showPassword, showPdw, passwordInput, goToLogin, user, register };
+    const register = async () => {
+      console.log(user.value);
+      const response = await loginStore.register(user.value);
+
+      if (response.id) {
+        success.value = true;
+        await sleep(2500);
+        success.value = false;
+        router.push("/");
+      }
+    };
+
+    const sleep = (m) => new Promise((r) => setTimeout(r, m));
+
+    return { showPassword, showPdw, passwordInput, goToLogin, user, register, success };
   },
 };
 </script>
@@ -108,6 +136,20 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+  .success-message{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: .7rem;
+      background: rgb(65, 192, 65);
+      color: white;
+      text-align: center;
+
+      span{
+          font-weight: 300;
+          font-size: .95em;
+      }
   }
   .content-register {
     width: 70%;
