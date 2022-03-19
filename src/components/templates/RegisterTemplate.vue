@@ -1,17 +1,25 @@
 <template>
-  <div class="login-template">
-    <div class="content-login">
+  <div class="register-template">
+    <div class="btn-voltar" @click="goToLogin">
+      <img src="../../assets/icons/arrow-back.svg" alt="user icon" />
+    </div>
+    <div class="content-register">
       <div class="title">
-        <h1>Bem-vindo de volta!</h1>
+        <h1>Faça seu registro!</h1>
       </div>
       <div class="sub-title">
-        <span>
-          Bem-vindo novamente! Por favor, insira as informações abaixo
-        </span>
+        <span> Insira as informações abaixo para se cadastrar! </span>
       </div>
 
       <div class="inputs">
         <form>
+          <label>
+            Nome
+            <div>
+              <input type="text" placeholder="Insira seu nome" />
+              <img src="../../assets/icons/user.svg" alt="user icon" />
+            </div>
+          </label>
           <label>
             E-mail
             <div>
@@ -44,13 +52,7 @@
             </div>
           </label>
 
-          <button class="btn-login">Entrar</button>
-
-          <div class="register">
-            <span>
-              Ainda não tem uma conta? <span class="strong" @click="goToRegister">Registre-se</span>
-            </span>
-          </div>
+          <button class="btn-login">Registar</button>
         </form>
       </div>
     </div>
@@ -59,7 +61,7 @@
 
 <script>
 import { ref } from "vue";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const showPassword = ref(false);
@@ -75,25 +77,36 @@ export default {
         passwordInput.value.type = "text";
       }
     };
-    const goToRegister =() =>{
-        router.push({name: 'register'})
-    }
-    return { showPassword, showPdw, passwordInput, goToRegister };
+    const goToLogin = () => {
+      router.push('/auth');
+    };
+    return { showPassword, showPdw, passwordInput, goToLogin };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.login-template {
+.register-template {
   padding: 1.5rem;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
-  .content-login {
-      width: 70%;
+  .btn-voltar {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .content-register {
+    width: 70%;
+
     .title {
       h1 {
         font-weight: 500;
@@ -156,31 +169,20 @@ export default {
             background: #a27eee;
           }
         }
-        .register {
-          margin: 1rem 0 0 0;
-          text-align: center;
-          font-size: 0.8em;
-
-          .strong {
-            color: #7f56da;
-            font-weight: 500;
-            cursor: pointer;
-          }
-        }
       }
     }
   }
 }
 
-@media screen and (max-width: 780px){
-   .title{
-       text-align: center;
-   }
-   .sub-title{
-       text-align: center;
-   }
-   .content-login {
-      width: 100% !important;
-     }
+@media screen and (max-width: 780px) {
+  .title {
+    text-align: center;
+  }
+  .sub-title {
+    text-align: center;
+  }
+  .content-register {
+    width: 100% !important;
+  }
 }
 </style>
