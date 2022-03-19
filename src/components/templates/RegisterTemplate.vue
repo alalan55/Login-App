@@ -78,7 +78,7 @@ export default {
       }
     };
     const goToLogin = () => {
-      router.push('/auth');
+      router.push('/');
     };
     return { showPassword, showPdw, passwordInput, goToLogin };
   },
