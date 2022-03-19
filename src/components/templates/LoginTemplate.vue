@@ -15,7 +15,7 @@
           <label>
             E-mail
             <div>
-              <input type="email" placeholder="Insira seu e-mail" />
+              <input type="email" placeholder="Insira seu e-mail" v-model="user.email" />
               <img src="../../assets/icons/email.svg" alt="user icon" />
             </div>
           </label>
@@ -26,6 +26,7 @@
                 type="password"
                 placeholder="Insira sua senha"
                 ref="passwordInput"
+                v-model="user.password"
               />
               <img
                 v-if="showPassword"
@@ -44,7 +45,7 @@
             </div>
           </label>
 
-          <button class="btn-login">Entrar</button>
+          <button class="btn-login" @click.prevent="login">Entrar</button>
 
           <div class="register">
             <span>
@@ -65,6 +66,7 @@ export default {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
+    const user = ref({})
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -78,7 +80,10 @@ export default {
     const goToRegister =() =>{
         router.push({name: 'register'})
     }
-    return { showPassword, showPdw, passwordInput, goToRegister };
+    const login = () =>{
+        console.log(user.value)
+    }
+    return { showPassword, showPdw, passwordInput, goToRegister, user,login };
   },
 };
 </script>

@@ -16,14 +16,14 @@
           <label>
             Nome
             <div>
-              <input type="text" placeholder="Insira seu nome" />
+              <input type="text" placeholder="Insira seu nome" v-model="user.name" />
               <img src="../../assets/icons/user.svg" alt="user icon" />
             </div>
           </label>
           <label>
             E-mail
             <div>
-              <input type="email" placeholder="Insira seu e-mail" />
+              <input type="email" placeholder="Insira seu e-mail" v-model="user.email" />
               <img src="../../assets/icons/email.svg" alt="user icon" />
             </div>
           </label>
@@ -34,6 +34,7 @@
                 type="password"
                 placeholder="Insira sua senha"
                 ref="passwordInput"
+                v-model="user.password"
               />
               <img
                 v-if="showPassword"
@@ -52,7 +53,7 @@
             </div>
           </label>
 
-          <button class="btn-login">Registar</button>
+          <button class="btn-login" @click.prevent="register">Registar</button>
         </form>
       </div>
     </div>
@@ -67,6 +68,7 @@ export default {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
+    const user = ref({})
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -78,9 +80,12 @@ export default {
       }
     };
     const goToLogin = () => {
-      router.push('/auth');
+      router.push('/');
     };
-    return { showPassword, showPdw, passwordInput, goToLogin };
+    const register = () =>{
+        console.log(user.value)
+    }
+    return { showPassword, showPdw, passwordInput, goToLogin, user, register };
   },
 };
 </script>
