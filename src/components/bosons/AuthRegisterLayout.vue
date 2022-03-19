@@ -1,7 +1,6 @@
 <template>
     <div class="auth-registe-layout">
         <div class="component">
-            alan de oliveira
             <router-view/>
         </div>
         <div class="img"></div>
