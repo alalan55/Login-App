@@ -47,7 +47,7 @@ export default {};
 
       .glass{
           z-index: 99;
-          backdrop-filter: blur(30px);
+          backdrop-filter: blur(35px);
       }
     }
     .ball {
@@ -61,5 +61,11 @@ export default {};
       transform: translate(-50%, -50%);
     }
   }
+}
+
+@media screen and (max-width: 780px){
+    .img{
+        display: none;
+    }
 }
 </style>

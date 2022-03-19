@@ -16,12 +16,31 @@
             E-mail
             <div>
               <input type="email" placeholder="Insira seu e-mail" />
+              <img src="../../assets/icons/user.svg" alt="user icon" />
             </div>
           </label>
           <label>
             Senha
             <div>
-              <input type="password" placeholder="Insira sua senha" />
+              <input
+                type="password"
+                placeholder="Insira sua senha"
+                ref="passwordInput"
+              />
+              <img
+                v-if="showPassword"
+                @click="showPdw"
+                src="../../assets/icons/eye-see.svg"
+                alt="eye to seen"
+                class="img-pdw"
+              />
+              <img
+                @click="showPdw"
+                v-if="!showPassword"
+                src="../../assets/icons/eye-off.svg"
+                alt="eye off"
+                class="img-pdw"
+              />
             </div>
           </label>
 
@@ -39,12 +58,29 @@
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+export default {
+  setup() {
+    const showPassword = ref(false);
+    const passwordInput = ref(null);
+
+    const showPdw = () => {
+      if (showPassword.value == true) {
+        showPassword.value = false;
+        passwordInput.value.type = "password";
+      } else {
+        showPassword.value = true;
+        passwordInput.value.type = "text";
+      }
+    };
+    return { showPassword, showPdw, passwordInput };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .login-template {
-    padding: 1.5rem;
+  padding: 1.5rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -75,6 +111,7 @@ export default {};
           div {
             height: 45px;
             margin: 0.5rem 0;
+            position: relative;
 
             input {
               width: 100%;
@@ -86,6 +123,14 @@ export default {};
               &:focus {
                 outline: rgb(102, 102, 102);
               }
+            }
+            .img-pdw {
+              cursor: pointer;
+            }
+            img {
+              position: absolute;
+              right: 10px;
+              top: 8px;
             }
           }
         }
@@ -119,5 +164,14 @@ export default {};
       }
     }
   }
+}
+
+@media screen and (max-width: 780px){
+   .title{
+       text-align: center;
+   }
+   .sub-title{
+       text-align: center;
+   }
 }
 </style>
