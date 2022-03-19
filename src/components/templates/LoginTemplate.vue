@@ -15,7 +15,11 @@
           <label>
             E-mail
             <div>
-              <input type="email" placeholder="Insira seu e-mail" v-model="user.email" />
+              <input
+                type="email"
+                placeholder="Insira seu e-mail"
+                v-model="user.email"
+              />
               <img src="../../assets/icons/email.svg" alt="user icon" />
             </div>
           </label>
@@ -49,7 +53,8 @@
 
           <div class="register">
             <span>
-              Ainda não tem uma conta? <span class="strong" @click="goToRegister">Registre-se</span>
+              Ainda não tem uma conta?
+              <span class="strong" @click="goToRegister">Registre-se</span>
             </span>
           </div>
         </form>
@@ -60,15 +65,15 @@
 
 <script>
 import { ref } from "vue";
-import {useRouter} from 'vue-router'
-import {useLoginStore} from '../../stores/login'
+import { useRouter } from "vue-router";
+import { useLoginStore } from "../../stores/login";
 export default {
   setup() {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
-    const user = ref({})
-    const loginStore = useLoginStore()
+    const user = ref({});
+    const loginStore = useLoginStore();
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -79,17 +84,17 @@ export default {
         passwordInput.value.type = "text";
       }
     };
-    const goToRegister =() =>{
-        router.push({name: 'register'})
-    }
-    const login = async () =>{
-        let successLogin = await loginStore.login(user.value)
-        
-        if(successLogin){
-            router.push({name: 'home'})
-        }
-    }
-    return { showPassword, showPdw, passwordInput, goToRegister, user,login };
+    const goToRegister = () => {
+      router.push({ name: "register" });
+    };
+    const login = async () => {
+      let successLogin = await loginStore.login(user.value);
+
+      if (successLogin) {
+        router.push({ name: "home" });
+      }
+    };
+    return { showPassword, showPdw, passwordInput, goToRegister, user, login };
   },
 };
 </script>
@@ -104,7 +109,7 @@ export default {
   justify-content: center;
 
   .content-login {
-      width: 70%;
+    width: 70%;
     .title {
       h1 {
         font-weight: 500;
@@ -183,15 +188,15 @@ export default {
   }
 }
 
-@media screen and (max-width: 780px){
-   .title{
-       text-align: center;
-   }
-   .sub-title{
-       text-align: center;
-   }
-   .content-login {
-      width: 100% !important;
-     }
+@media screen and (max-width: 780px) {
+  .title {
+    text-align: center;
+  }
+  .sub-title {
+    text-align: center;
+  }
+  .content-login {
+    width: 100% !important;
+  }
 }
 </style>

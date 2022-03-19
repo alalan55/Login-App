@@ -4,10 +4,7 @@
       <img src="../../assets/icons/arrow-back.svg" alt="user icon" />
     </div>
     <div class="success-message" v-if="success">
-        <span>
-            Registro realizado com sucesso!
-        </span>
-
+      <span> Registro realizado com sucesso! </span>
     </div>
     <div class="content-register">
       <div class="title">
@@ -112,7 +109,15 @@ export default {
 
     const sleep = (m) => new Promise((r) => setTimeout(r, m));
 
-    return { showPassword, showPdw, passwordInput, goToLogin, user, register, success };
+    return {
+      showPassword,
+      showPdw,
+      passwordInput,
+      goToLogin,
+      user,
+      register,
+      success,
+    };
   },
 };
 </script>
@@ -136,19 +141,19 @@ export default {
     justify-content: center;
     cursor: pointer;
   }
-  .success-message{
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: .7rem;
-      background: rgb(65, 192, 65);
-      color: white;
-      text-align: center;
+  .success-message {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.7rem;
+    background: rgb(65, 192, 65);
+    color: white;
+    text-align: center;
 
-      span{
-          font-weight: 300;
-          font-size: .95em;
-      }
+    span {
+      font-weight: 300;
+      font-size: 0.95em;
+    }
   }
   .content-register {
     width: 70%;

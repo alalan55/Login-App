@@ -15,10 +15,10 @@ export const useLoginStore = defineStore({
             return state.userId
         },
         $user(state){
-            return state.user
+            return state.user || localStorage.getItem('user')
         },
         $token(state){
-            return state.token
+            return state.token || localStorage.getItem('token')
         }
     },
     actions: {
@@ -29,6 +29,9 @@ export const useLoginStore = defineStore({
                 this.token = req.data.access_token
                 this.expires_at = req.data.expires_at
                 this.expires_in = req.data.expires_in
+                
+                localStorage.setItem('user', this.user)
+                localStorage.setItem('token', this.token)
 
                 return true
             } catch (error) {

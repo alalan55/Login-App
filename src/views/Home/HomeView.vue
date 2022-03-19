@@ -1,11 +1,13 @@
 <template>
-    <div>
-        <span>Olá, eu sou a página home</span>
-    </div>
+    <HomeTemplate/>
 </template>
 
 <script>
+import HomeTemplate from '../../components/templates/HomeTemplate.vue'
     export default {
+        components:{
+            HomeTemplate
+        }
         
     }
 </script>
