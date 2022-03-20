@@ -46,9 +46,16 @@ export const useLoginStore = defineStore({
         async register(user) {
             try {
                 let req = await supabase.auth.signUp(user)
-                return req.user
+                console.log(req)
+                if(req.user){
+                    return true
+                }else{
+                    return false
+                }
+                
             } catch (error) {
                 console.error(error)
+                return false
             }
         },
 
