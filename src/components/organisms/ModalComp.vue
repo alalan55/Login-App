@@ -11,7 +11,11 @@
         <label>
           Título
           <div>
-            <input type="text" placeholder="Digite o título" />
+            <input
+              type="text"
+              placeholder="Digite o título"
+              v-model="todo.title"
+            />
           </div>
         </label>
 
@@ -19,7 +23,11 @@
           Descrição da tarefa
           <div>
             <!-- <textarea name="" id="" cols="30" rows="10"> </textarea> -->
-            <input type="text" placeholder="Descrição" />
+            <input
+              type="text"
+              placeholder="Descrição"
+              v-model="todo.description"
+            />
           </div>
         </label>
 
@@ -27,13 +35,13 @@
           <label>
             Data de início
             <div>
-              <input type="date" />
+              <input type="date" v-model="todo.date_start" />
             </div>
           </label>
           <label>
             Data de Fim
             <div>
-              <input type="date" />
+              <input type="date" v-model="todo.date_end" />
             </div>
           </label>
         </div>
@@ -41,20 +49,44 @@
         <label>
           Duração estimada (horas)
           <div>
-            <input type="number" placeholder="Digite a duração estimada" />
+            <input
+              type="number"
+              placeholder="Digite a duração estimada"
+              v-model="todo.duration"
+            />
           </div>
         </label>
       </form>
 
-      <div class="btn-submit-form">
-        <span>Cadastrar tarefas</span>
+      <div class="btn-submit-form" @click="submitForm">
+        <span v-if="!loading">Cadastrar tarefas</span>
+        <Spinner v-if="loading" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+import Spinner from "../atoms/SpinnerLoading.vue";
+export default {
+  props: {
+    loading: Boolean,
+  },
+  components: {
+    Spinner,
+  },
+  setup(props, {emit}) {
+    const todo = ref({});
+    const submitForm = () => {
+        emit('submitTodo', todo.value)
+    };
+    return {
+      todo,
+      submitForm,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
