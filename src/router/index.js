@@ -30,6 +30,14 @@ const router = createRouter({
       meta:{
         requireAuth: true
       }
+    },
+    {
+      path: '/todos',
+      name: 'todos',
+      component: () => import('../views/ToDos/ToDosView.vue'),
+      meta:{
+        requireAuth: true
+      }
     }
 
   ]
