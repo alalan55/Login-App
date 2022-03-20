@@ -3,7 +3,12 @@
     <Navbar class="nav-bar" />
     <div class="content-todo">
       <teleport to="body">
-        <Modal v-if="showModal" @close="showModalFunction" />
+        <Modal
+          v-if="showModal"
+          @close="showModalFunction"
+          :loading="loading"
+          @submitTodo="submitTodo"
+        />
       </teleport>
       <div class="barra-novo-todo">
         <div class="btn-novo-todo" @click="showModalFunction">
@@ -17,6 +22,7 @@
 
 <script>
 import { ref } from "vue";
+// import {supabase} from '../../services/supabase'
 import Navbar from "../organisms/NavBar.vue";
 import Modal from "../organisms/ModalComp.vue";
 export default {
@@ -26,12 +32,37 @@ export default {
   },
   setup() {
     const showModal = ref(false);
+    const loading = ref(false);
     const showModalFunction = () => {
       showModal.value == true
         ? (showModal.value = false)
         : (showModal.value = true);
     };
-    return { showModal, showModalFunction };
+    const submitTodo = async (todo) => {
+        console.log(todo)
+      try {
+        let req = await fetch(
+          `${import.meta.env.VITE_SUPABASE_TODO_URL}&apikey${
+            import.meta.env.VITE_SUPABASE_ANON_KEY
+          }`,
+          {
+            method: "post",
+            body: todo,
+            headers: {
+              "content-type": "application/json",
+              "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              "apiKey": import.meta.env.VITE_SUPABASE_ANON_KEY,
+            },
+          }
+        );
+
+        let res = await req.json();
+        console.log(res);
+      } catch (error) {
+        console.error(error, "erro aqui ze");
+      }
+    };
+    return { showModal, showModalFunction, loading, submitTodo };
   },
 };
 </script>
