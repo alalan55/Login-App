@@ -7,3 +7,9 @@
 
   <RouterView />
 </template>
+
+<style>
+body{
+  position: relative;
+}
+</style>
