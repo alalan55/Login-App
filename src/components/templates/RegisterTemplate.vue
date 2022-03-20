@@ -6,6 +6,9 @@
     <div class="success-message" v-if="success">
       <span> Registro realizado com sucesso! </span>
     </div>
+     <div class="success-message" v-if="error">
+      <span> Erro ao realizar registro! </span>
+    </div>
     <div class="content-register">
       <div class="title">
         <h1>Faça seu registro!</h1>
@@ -64,7 +67,10 @@
             </div>
           </label>
 
-          <button class="btn-login" @click.prevent="register">Registar</button>
+          <button class="btn-login" @click.prevent="register">
+            <span v-if="!loading">Registrar</span>
+            <Spinner v-if="loading" />
+          </button>
         </form>
       </div>
     </div>
@@ -75,7 +81,11 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLoginStore } from "../../stores/login";
+import Spinner from "../atoms/SpinnerLoading.vue";
 export default {
+  components: {
+    Spinner,
+  },
   setup() {
     const showPassword = ref(false);
     const passwordInput = ref(null);
@@ -83,6 +93,8 @@ export default {
     const user = ref({});
     const loginStore = useLoginStore();
     const success = ref(false);
+    const loading = ref(false)
+    const error = ref(false)
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -97,14 +109,24 @@ export default {
       router.push("/");
     };
     const register = async () => {
+      loading.value = true
       const response = await loginStore.register(user.value);
+      console.log(response, 'resposta no template')
+      // tem que verificar porque ele ta redirecionando, mesmo estanto errado
 
-      if (response.id) {
+      if (response == true) {
+        loading.value = false
         success.value = true;
         await sleep(2500);
         success.value = false;
         router.push("/");
+      }else{
+        loading.value = false
+        error.value = true
+        await sleep(3500)
+        error.value = false
       }
+      
     };
 
     const sleep = (m) => new Promise((r) => setTimeout(r, m));
@@ -117,6 +139,8 @@ export default {
       user,
       register,
       success,
+      loading,
+      error
     };
   },
 };
@@ -215,6 +239,9 @@ export default {
           color: white;
           font-weight: 500;
           transition: 0.2s ease-in-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           &:hover {
             background: #a27eee;

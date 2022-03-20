@@ -1,5 +1,8 @@
 <template>
   <div class="login-template">
+    <div class="success-message" v-if="error">
+      <span> Problemas ao realizar login! </span>
+    </div>
     <div class="content-login">
       <div class="title">
         <h1>Bem-vindo de volta!</h1>
@@ -49,7 +52,10 @@
             </div>
           </label>
 
-          <button class="btn-login" @click.prevent="login">Entrar</button>
+          <button class="btn-login" @click.prevent="login">
+            <span v-if="!loading">Entrar</span>
+            <Spinner v-if="loading" />
+          </button>
 
           <div class="register">
             <span>
@@ -67,13 +73,19 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLoginStore } from "../../stores/login";
+import Spinner from "../atoms/SpinnerLoading.vue";
 export default {
+  components: {
+    Spinner,
+  },
   setup() {
     const showPassword = ref(false);
     const passwordInput = ref(null);
     const router = useRouter();
     const user = ref({});
     const loginStore = useLoginStore();
+    const loading = ref(false);
+     const error = ref(false);
 
     const showPdw = () => {
       if (showPassword.value == true) {
@@ -88,13 +100,31 @@ export default {
       router.push({ name: "register" });
     };
     const login = async () => {
+      loading.value = true;
       let successLogin = await loginStore.login(user.value);
 
       if (successLogin) {
+        loading.value = false;
         router.push({ name: "home" });
+      }else{
+        loading.value = false;
+        error.value = true
+        await sleep(3500)
+        error.value = false
       }
+      loading.value = false;
     };
-    return { showPassword, showPdw, passwordInput, goToRegister, user, login };
+    const sleep = (m) => new Promise((r) => setTimeout(r, m));
+    return {
+      showPassword,
+      showPdw,
+      passwordInput,
+      goToRegister,
+      user,
+      login,
+      loading,
+      error
+    };
   },
 };
 </script>
@@ -107,6 +137,22 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  .success-message {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.7rem;
+    background: rgb(233, 42, 42);
+    color: white;
+    text-align: center;
+
+    span {
+      font-weight: 300;
+      font-size: 0.95em;
+    }
+  }
 
   .content-login {
     width: 70%;
@@ -167,6 +213,9 @@ export default {
           color: white;
           font-weight: 500;
           transition: 0.2s ease-in-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           &:hover {
             background: #a27eee;

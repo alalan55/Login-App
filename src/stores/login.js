@@ -16,11 +16,11 @@ export const useLoginStore = defineStore({
         },
         $user(state) {
             // return state.user || localStorage.getItem('user')
-            return state.user 
+            return state.user
         },
         $token(state) {
             // return state.token || localStorage.getItem('token')
-            return state.token 
+            return state.token
         }
     },
     actions: {
@@ -46,9 +46,16 @@ export const useLoginStore = defineStore({
         async register(user) {
             try {
                 let req = await supabase.auth.signUp(user)
-                return req.user
+                console.log(req)
+                if(req.user){
+                    return true
+                }else{
+                    return false
+                }
+                
             } catch (error) {
                 console.error(error)
+                return false
             }
         },
 
