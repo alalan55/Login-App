@@ -19,13 +19,9 @@ export default {
   setup() {
     const store = useLoginStore();
     const email = computed(() => store.$user.email);
-    const logout = () => {
-      store.logout;
-    };
     return {
       store,
       email,
-      logout,
     };
   },
 };

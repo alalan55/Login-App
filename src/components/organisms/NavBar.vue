@@ -13,7 +13,7 @@
 
 <script>
 import { useLoginStore } from "../../stores/login";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const store = useLoginStore();
@@ -21,7 +21,7 @@ export default {
 
     const logout = () => {
       store.logout;
-      router.push('/')
+      router.push("/");
     };
     return { logout };
   },

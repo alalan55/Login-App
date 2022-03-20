@@ -16,11 +16,11 @@ export const useLoginStore = defineStore({
         },
         $user(state) {
             // return state.user || localStorage.getItem('user')
-            return state.user 
+            return state.user
         },
         $token(state) {
             // return state.token || localStorage.getItem('token')
-            return state.token 
+            return state.token
         }
     },
     actions: {
